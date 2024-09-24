@@ -1,23 +1,3 @@
-// PROMISES!
-// Some learners find Promises a bit difficult to understand.
-//
-// In this course, you'll only deal with fetch() related promises/
-// So, when in doubt, start with this snippet:
-/*
-fetch('https://some-url.com')
- .then((res) => res.json())
- .then((json) => {
-    console.log('here is your fetch result! Do stuff with it!', json)
- })
- .catch((error) => {
-    console.warn('here is your fetch error! Fix the error!', error)
- });
- */
-// The umich events feed is a reliable feed to get used to API calls with
-// https://events.umich.edu/day/json?v=2
-
-// We have provided a function that returns a promise to help
-// demonstrate what promises do.
 const orderShoesOnline = () => {
   const shoesInStock = document.querySelector('#shoes-in-stock').checked;
   // The two arguments sent to a promise function are
@@ -47,7 +27,9 @@ const clickBuyShoesCallback = (e) => {
   const placedOrder = orderShoesOnline();
   // @todo First, try sending the order to the Jumbotron and see what you get
   // by uncommenting the line below.
+  // console.log(placedOrder)
   // sendToJumbotron(placedOrder);
+  // console.log(placedOrder)
 
   // Take note of what is in the Jumbotron, then
   // make that line a comment again.
@@ -59,13 +41,13 @@ const clickBuyShoesCallback = (e) => {
 
   // Uncomment below 👇 to place your order and send the results
   // to the Jumbotron.
-  // placedOrder
-  //   .then((response) => {
-  //     sendToJumbotron(response);
-  //   })
-  //   .catch((error) => {
-  //     sendToJumbotron(error);
-  //   });
+  placedOrder
+    .then((response) => {
+      sendToJumbotron(response);
+    })
+    .catch((error) => {
+      sendToJumbotron(error);
+    });
 
     // @todo keep this sendToJumbotron at the bottom of the function.
     // Notice how it shows up in the Jumbotron before the delivery
@@ -86,7 +68,9 @@ const fetchFromItunesSendResponseCallback = () => {
   // @see https://www.javascripttutorial.net/javascript-fetch-api/
   fetch('https://itunes.apple.com/search?term=hoobastank')
   .then((response) => {
+    console.log(response)
     // @todo, send the response to the Jumbotron.
+    sendToJumbotron(response);
   });
 }
 
@@ -101,33 +85,11 @@ const fetchFromItunesSendJsonCallback = () => {
   // to the Jumbotron.
   //@see   // @see https://www.javascripttutorial.net/javascript-fetch-api/
   fetch('https://itunes.apple.com/search?term=hoobastank')
-    //.then((res) => ??? do something here)
-    // .then((json) => ??? do something here);
-}
-
-// The need to chain two uses of then() might be confusing. It would be normal to ask
-// "why not just give me the thing I wanted with fetch(), without that `Response` step?"
-// For now just keep two things in mind
-// - Responses can be huge, so getting data from the response (such as json()) is also
-//   returned as a promise.
-// - Responses can have different structures so we need the flexibility to choose how
-//   to parse the response contents.
-// @see https://developer.mozilla.org/en-US/docs/Web/API/Response
-
-
-/****** OK NOW YOU TRY IT ON YOUR OWN! *******/
-
-// https://yesno.wtf provides a random yes or no with a gif.
-// it also has a public API that you will be using below
-
-const fetchFromYesNoSendResponseCallback = () => {
-  // @todo,similar to fetchFromItunesSendResponseCallback()
-  // fetch https://yesno.wtf/api
-  // send the response to the jumbotron
-}
-
-const fetchFromYesNoSendJsonCallback = () => {
-  // @todo simlar to fetchFromItunesSendJsonCallback()
-  // fetch  https://yesno.wtf/api
-  // send the parsed JSON to the jumbotron.
+    .then((resp) => {
+      return resp.json()
+    })
+    .then((jsonz) => {
+      sendToJumbotron(jsonz)
+      console.log('THE JSON', jsonz)
+    });
 }

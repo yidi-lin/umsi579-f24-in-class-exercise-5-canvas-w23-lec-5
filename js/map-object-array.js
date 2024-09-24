@@ -10,20 +10,37 @@ const pokemons = [{"id":1,"name":{"english":"Bulbasaur","japanese":"フシギダ
 // @see https://stackoverflow.com/questions/19590865/from-an-array-of-objects-extract-value-of-a-property-as-array
 // ADDITIONAL REQUIREMENT: do not use curly brackets.
 // @see https://javascript.info/arrow-functions-basics
-const mapAbbreviationArrayCallback = () => sendToJumbotron('@todo this should be an array of every stateAbbrev')
+const mapAbbreviationArrayCallback = () => {
+  // const justAbbreviation = stateCapitals.map((item) => {
+  //   return item.stateAbbrev;
+  // })
+  // 👇 is the same as above, just more concise.
+  const justAbbreviation = stateCapitals.map((item) => item.stateAbbrev)
+  sendToJumbotron(justAbbreviation)
+
+}
 
 
 // @todo, similar to above, but the Jumbotron needs a string of every 'name' separated
 // by a comma.
 // Use map() and join(). This also should not have curly brackets
-const mapNameStringCallBack = () => sendToJumbotron('@todo this should be a comma separated string of capital names')
+const mapNameStringCallBack = () => {
+  const justAbbreviation = stateCapitals.map((item) => item.name)
+  const joined = justAbbreviation.join(', ');
+  sendToJumbotron(joined)
+}
 
 // @todo give the Jumbotron an array of just the English Pokemon names
 const pokemonNameArrayCallBack = () =>
-  sendToJumbotron('@todo this should be an array of English Pokemon names')
+  sendToJumbotron(pokemons.map((po) => po.name.english ))
 
 // @todo give the jumbotron a pipe delimited string of each pokemons name in English, Japanese, Chinese, French.
 // ENGLISH_NAME - JAPANESE_NAME - CHINESE_NAME - FRENCH_NAME | ENGLISH_NAME - JAPANESE_NAME - CHINESE_NAME - FRENCH_NAME
 // etc..
-const pokemonNameStringEveryLanguageCallBack = () =>
-  sendToJumbotron('This should be a string of dash/pipe separated multilingual pokemon names')
+const pokemonNameStringEveryLanguageCallBack = () => {
+  const pokeArray = pokemons.map((po) => {
+    return `${po.name.english} - ${po.name.japanese} - ${po.name.chinese} - ${po.name.french}`
+  })
+
+  sendToJumbotron(pokeArray.join(' | '))
+}
